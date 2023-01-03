@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Author;
+use App\Http\Requests\BookRequest;
+
 
 class BookController extends Controller
 {
@@ -32,23 +34,10 @@ class BookController extends Controller
             ]
         );
     }
-    public function put(Request $request)
+    private function saveBookData(Book $book, BookRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|min:3|max:256',
-            'author_id' => 'required',
-            'description' => 'nullable',
-            'price' => 'nullable|numeric',
-            'year' => 'numeric',
-            'image' => 'nullable|image',
-            'display' => 'nullable'
-        ]);
-        $book = new Book();
-        $book->name = $validatedData['name'];
-        $book->author_id = $validatedData['author_id'];
-        $book->description = $validatedData['description'];
-        $book->price = $validatedData['price'];
-        $book->year = $validatedData['year'];
+        $validatedData = $validatedData = $request->validated();
+        $book->fill($validatedData);
         $book->display = (bool) ($validatedData['display'] ?? false);
         if ($request->hasFile('image')) {
             $uploadedFile = $request->file('image');
@@ -60,9 +49,18 @@ class BookController extends Controller
                 'uploads'
             );
         }
-
         $book->save();
+    }
+    public function put(BookRequest $request)
+    {
+        $book = new Book();
+        $this->saveBookData($book, $request);
         return redirect('/books');
+    }
+    public function patch(Book $book, BookRequest $request)
+    {
+        $this->saveBookData($book, $request);
+        return redirect('/books/update/' . $book->id);
     }
     public function update(Book $book)
     {
@@ -75,37 +73,6 @@ class BookController extends Controller
                 'authors' => $authors,
             ]
         );
-    }
-    public function patch(Book $book, Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|min:3|max:256',
-            'author_id' => 'required',
-            'description' => 'nullable',
-            'price' => 'nullable|numeric',
-            'year' => 'numeric',
-            'image' => 'nullable|image',
-            'display' => 'nullable'
-        ]);
-        $book->name = $validatedData['name'];
-        $book->author_id = $validatedData['author_id'];
-        $book->description = $validatedData['description'];
-        $book->price = $validatedData['price'];
-        $book->year = $validatedData['year'];
-        $book->display = (bool) ($validatedData['display'] ?? false);
-        if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image');
-            $extension = $uploadedFile->clientExtension();
-            $name = uniqid();
-            $book->image = $uploadedFile->storePubliclyAs(
-                '/',
-                $name . '.' . $extension,
-                'uploads'
-            );
-        }
-
-        $book->save();
-        return redirect('/books/update/' . $book->id);
     }
     public function delete(Book $book)
     {

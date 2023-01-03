@@ -43,17 +43,6 @@ eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="a
 </header>
 
 <body>
-    <div class="bg-light mb-4 py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <header class="navbar navbar-light">
-                        <span class="navbar-brand mb-0 h1">r1vvy</span>
-                    </header>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container mb-4">
         <div class="row">
             <main class="col-md-12">

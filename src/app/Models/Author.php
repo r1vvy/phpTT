@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     use HasFactory;
-    public function author()
+    public function books()
     {
-        return $this->belongsTo(Author::class);
+     return $this->hasMany(Book::class);
     }
 }

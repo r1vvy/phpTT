@@ -18,9 +18,7 @@
         <select id="book-author" name="author_id" class="form-select @error('author_id') is-invalid @enderror">
             <option value="">Norādiet autoru!</option>
             @foreach($authors as $author)
-            <option value="{{ $author->id }}" @if ($author->id == old('author_id', $book->author-
-                >id ?? false)) selected @endif
-                >{{ $author->name }}</option>
+            <option value="{{ $author->id }}" @if ($author->id == old('author_id', $book->author->id ?? false)) selected @endif->{{ $author->name }}</option>
             @endforeach
         </select>
         @error('author_id')
