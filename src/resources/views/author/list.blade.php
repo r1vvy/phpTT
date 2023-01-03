@@ -27,6 +27,6 @@
 </table>
 @else
 <p>Nav atrasts neviens ieraksts</p>
-<a href="/authors/create" class="btn btn-primary">Izveidot jaunu</a>
 @endif
+<a href="/authors/create" class="btn btn-primary">Izveidot jaunu</a>
 @endsection

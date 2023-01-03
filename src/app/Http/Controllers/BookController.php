@@ -36,7 +36,7 @@ class BookController extends Controller
     }
     private function saveBookData(Book $book, BookRequest $request)
     {
-        $validatedData = $validatedData = $request->validated();
+        $validatedData = $request->validated();
         $book->fill($validatedData);
         $book->display = (bool) ($validatedData['display'] ?? false);
         if ($request->hasFile('image')) {
