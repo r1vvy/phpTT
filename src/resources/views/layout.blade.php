@@ -23,16 +23,21 @@ eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="a
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/">Sākumlapa</a>
-                                </li>
+                                @if(Auth::check())
                                 <li class="nav-item">
                                     <a class="nav-link" href="/authors">Autori</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/books">Grāmatas</a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Beigt darbu</a>
+                                </li>
+                                @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Pieslēgties</a>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                     </nav>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ use App\Http\Controllers\BookController;
 |
 */
 Route::get('/', [HomeController::class, 'index']);
+// Author routes
 Route::get('/authors', [AuthorController::class, 'list']);
 Route::get('/authors/create', [AuthorController::class, 'create']);
 Route::post('/authors/put', [AuthorController::class, 'put']);
@@ -29,3 +31,7 @@ Route::post('/books/put', [BookController::class, 'put']);
 Route::get('/books/update/{book}', [BookController::class, 'update']);
 Route::post('/books/patch/{book}', [BookController::class, 'patch']);
 Route::post('/books/delete/{book}', [BookController::class, 'delete']);
+// Auth routes
+Route::get('/login', [AuthorizationController::class, 'login'])->name('login');
+Route::post('/auth', [AuthorizationController::class, 'authenticate']);
+Route::get('/logout', [AuthorizationController::class, 'logout']);
