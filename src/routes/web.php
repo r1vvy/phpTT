@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\CategoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [HomeController::class, 'index']);
 // Author routes
 Route::get('/authors', [AuthorController::class, 'list']);
@@ -44,3 +46,10 @@ Route::post('/categories/put', [CategoryController::class, 'put']);
 Route::get('/categories/update/{category}', [CategoryController::class, 'update']);
 Route::post('/categories/patch/{category}', [CategoryController::class, 'patch']);
 Route::post('/categories/delete/{category}', [CategoryController::class, 'delete']);
+
+// Data routes
+Route::prefix('data')->group(function () {
+    Route::get('/get-top-books', [DataController::class, 'getTopBooks']);
+    Route::get('/get-book/{book}', [DataController::class, 'getBook']);
+    Route::get('/get-relatedbooks/{book}', [DataController::class, 'getRelatedBooks']);
+});
