@@ -17,6 +17,13 @@ class AuthorizationController extends Controller
             ]
         );
     }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
     public function authenticate(Request $request)
     {
         $credentials = $request->only('name', 'password');
@@ -27,12 +34,5 @@ class AuthorizationController extends Controller
         return back()->withErrors([
             'name' => 'Pieslēgšanās neveiksmīga',
         ]);
-    }
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/');
     }
 }
